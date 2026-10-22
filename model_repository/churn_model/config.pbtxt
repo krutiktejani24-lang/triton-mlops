@@ -1,0 +1,33 @@
+name: "churn_model"
+platform: "onnxruntime_onnx"
+max_batch_size: 32
+
+input [
+  {
+    name: "features"
+    data_type: TYPE_FP32
+    dims: [ 8 ]
+  }
+]
+
+output [
+  {
+    name: "probabilities"
+    data_type: TYPE_FP32
+    dims: [ 2 ]
+  }
+]
+
+# Two model instances on CPU: Triton runs them in parallel.
+instance_group [
+  {
+    count: 2
+    kind: KIND_CPU
+  }
+]
+
+# Dynamic batching: requests that arrive within 1 ms are merged into one batch.
+dynamic_batching {
+  preferred_batch_size: [ 4, 8, 16 ]
+  max_queue_delay_microseconds: 1000
+}

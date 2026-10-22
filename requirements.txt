@@ -1,0 +1,7 @@
+# everything needed to run the project on your own machine (outside Docker)
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.4
+onnxruntime>=1.17
+flask>=3.0
+tritonclient[all]>=2.40

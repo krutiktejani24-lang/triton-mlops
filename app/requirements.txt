@@ -1,0 +1,4 @@
+flask>=3.0
+numpy>=1.26
+onnxruntime>=1.17
+tritonclient[all]>=2.40
